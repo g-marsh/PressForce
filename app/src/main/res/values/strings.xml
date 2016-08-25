@@ -21,6 +21,7 @@
     <string name="stress_r">Stress R (psi)</string>
     <string name="stress_kpsi">Stress (kpsi)</string>
     <string name="press_force">Press Force (lbs)</string>
+    <string name="press_exceed_yield">Press Exceeds Yield</string>
     <string name="yield_crs">CRS yield 54 kpsi</string>
     <string name="yield_acetal">Acetal yield 8 kpsi</string>
     <string name="yield_6061">6061 Alum yield 39 kpsi</string>

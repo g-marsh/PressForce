@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
     double dblStressR;
     double dblKStress;
     double dblForce;
+    double dblYieldKStress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,15 +110,18 @@ public class MainActivity extends AppCompatActivity {
                     if (blnLubricated) dblCFriction=.16;
                     else dblCFriction=.65;
                     dblModE=30000000.0;
+                    dblYieldKStress=54.0;
                 }
                 else if (strMaterial.equals("Alum.")){
                     if (blnLubricated) dblCFriction=.3;
                     else dblCFriction=1.2;
                     dblModE=10100000.0;
+                    dblYieldKStress=39.0;
                 }
                 else if (strMaterial.equals("Acetal")){
                     dblCFriction=.35;
                     dblModE=300000.0;
+                    dblYieldKStress=10.1;
                 }
                 tvCFriction.setText(String.format("%.2f",dblCFriction));
                 tvModE.setText(String.format("%.2e",dblModE));
@@ -151,9 +155,23 @@ public class MainActivity extends AppCompatActivity {
 
                 dblKStress = Math.pow((Math.pow(dblStressT-dblStressR,2)+Math.pow(dblStressR,2)+Math.pow(dblStressT,2))/2,.5)/1000;
                 tvKStress.setText(String.format("%.2f",dblKStress));
-
                 dblForce = 2*dblTransRad*PI*Double.valueOf(etLength.getText().toString())*dblPress*dblCFriction;
                 tvForce.setText(String.format("%.0f",dblForce));
+
+                if (dblKStress <= dblYieldKStress) {
+                    tvKStress.setTextColor(getResources().getColor(R.color.colorText));
+                    tvLblKStress.setText(getString(R.string.stress_kpsi));
+                    tvForce.setTextColor(getResources().getColor(R.color.colorText));
+                    tvLblForce.setText(getString(R.string.press_force));
+                }
+                else
+                {
+                    tvKStress.setTextColor(getResources().getColor(R.color.colorError));
+                    tvLblKStress.setText(getString(R.string.stress_kpsi) + " " + strMaterial + " Max " + String.format("%.1f",dblYieldKStress));
+                    tvForce.setTextColor(getResources().getColor(R.color.colorError));
+                    tvLblForce.setText(getString(R.string.press_exceed_yield));
+                }
+
 
                 svDisplay.post(new Runnable() {
                     @Override
