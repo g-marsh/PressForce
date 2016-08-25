@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">Press Force</string>
+    <string name="inside_diameter">Inside Diameter (inch)</string>
+    <string name="outside_diameter">Outside Diameter (inch)</string>
+    <string name="transition_diameter">Transition Diameter (inch)</string>
+    <string name="contact_length">Contact Length (inch)</string>
+    <string name="diameter_interference">Diameter Interference (inch)</string>
+    <string name="material">Material</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="lubricated">Lubricated</string>
+    <string name="calculate">Calculate</string>
+    <string name="coefficient_friction">Coefficient of Friction</string>
+    <string name="modulus_elasticity">Modulus of Elasticity (psi)</string>
+    <string name="inside_radius">Inside Radius (inch)</string>
+    <string name="outside_radius">Outside Radius</string>
+    <string name="transition_radius">Transition Radius (inch)</string>
+    <string name="radial_interference">Radial Interference (inch)</string>
+    <string name="contact_pressure">Contact Pressure (psi)</string>
+    <string name="stress_t">Stress T (psi)</string>
+    <string name="stress_r">Stress R (psi)</string>
+    <string name="stress_kpsi">Stress (kpsi)</string>
+    <string name="press_force">Press Force (lbs)</string>
+    <string name="yield_crs">CRS yield 54 kpsi</string>
+    <string name="yield_acetal">Acetal yield 8 kpsi</string>
+    <string name="yield_6061">6061 Alum yield 39 kpsi</string>
+
+    <!-- coefficient arrays -->
+    <string-array name="aryInterference">
+        <item>0.0005</item>
+        <item>0.0010</item>
+        <item>0.0020</item>
+    </string-array>
+    <string-array name="aryMaterial">
+        <item>Steel</item>
+        <item>Alum.</item>
+        <item>Acetal</item>
+    </string-array>
+
+
+
+
+</resources>
