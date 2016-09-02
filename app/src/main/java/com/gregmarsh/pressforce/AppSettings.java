@@ -13,5 +13,8 @@ public class AppSettings extends AppCompatActivity {
     public static final String OUTSIDE_DIAMETER = "OutsideDiameter";
     public static final String TRANSITION_DIAMETER = "TransitionDiameter";
     public static final String CONTACT_LENGTH = "ContactLength";
+    public static final String INTERFERENCE = "Interference";
+    public static final String MATERIAL = "Material";
+    public static final String LUBRICATED = "Lubricated";
 
 }

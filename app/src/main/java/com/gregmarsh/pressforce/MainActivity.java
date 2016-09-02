@@ -1,6 +1,7 @@
 package com.gregmarsh.pressforce;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -11,9 +12,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import static java.lang.Math.PI;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppSettings {
 
     // Controls
+    SharedPreferences spAppSettings;
     ScrollView svDisplay;
     EditText etID;
     EditText etOD;
@@ -61,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Instantiate Controls
 
+        spAppSettings = getSharedPreferences(APP_SETTINGS, Context.MODE_PRIVATE);
         svDisplay = (ScrollView) findViewById(R.id.scrollView);
         etID = (EditText) findViewById(R.id.editText);
         etOD = (EditText) findViewById(R.id.editText2);
@@ -95,6 +98,16 @@ public class MainActivity extends AppCompatActivity {
         dataAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnMaterial.setAdapter(dataAdapter);
         spnInterference.setAdapter(dataAdapter1);
+
+        // Read User previous inputs and update Text
+        etID.setText(spAppSettings.getString(INSIDE_DIAMETER, ".25"));
+        etOD.setText(spAppSettings.getString(OUTSIDE_DIAMETER, ".5"));
+        etTD.setText(spAppSettings.getString(TRANSITION_DIAMETER, ".31"));
+        etLength.setText(spAppSettings.getString(CONTACT_LENGTH, ".625"));
+        spnInterference.setSelection(spAppSettings.getInt(INTERFERENCE,0));
+        spnMaterial.setSelection(spAppSettings.getInt(MATERIAL,0));
+        rbLubricatedYes.setChecked(spAppSettings.getBoolean(LUBRICATED,false));
+
 
         // Calculate and View Results
         findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
@@ -135,7 +148,8 @@ public class MainActivity extends AppCompatActivity {
                 dblTransRad = Double.valueOf(etTD.getText().toString())/2;
                 tvTransRad.setText(String.format("%.3f",dblTransRad));
 
-                dblRadInterf = Double.valueOf(spnInterference.getSelectedItem().toString())/2;
+                strInterference = String.valueOf(spnInterference.getSelectedItem());
+                dblRadInterf = Double.valueOf(strInterference.toString())/2;
                 tvRadInterf.setText(String.format("%.5f",dblRadInterf));
 
                 dblPress = dblModE*dblRadInterf*(Math.pow(dblOutRad,2)-Math.pow(dblTransRad,2))
@@ -179,23 +193,24 @@ public class MainActivity extends AppCompatActivity {
                         svDisplay.fullScroll(View.FOCUS_DOWN);
                     }
                 });
-
-
-
-
-
-
-
-
-
             }
         });
+    }
 
 
+    @Override
+    protected void onPause() {
+        super.onPause();
 
-
-
-
+        final SharedPreferences.Editor editor = spAppSettings.edit();
+        editor.putString(INSIDE_DIAMETER,etID.getText().toString());
+        editor.putString(OUTSIDE_DIAMETER,etOD.getText().toString());
+        editor.putString(TRANSITION_DIAMETER,etTD.getText().toString());
+        editor.putString(CONTACT_LENGTH,etLength.getText().toString());
+        editor.putInt(INTERFERENCE,spnInterference.getSelectedItemPosition());
+        editor.putInt(MATERIAL,spnMaterial.getSelectedItemPosition());
+        editor.putBoolean(LUBRICATED,blnLubricated);
+        editor.commit();
 
     }
 }
