@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Press Force</string>
+    <string name="app_name">ME Press Force</string>
     <string name="inside_diameter">Inside Diameter (inch)</string>
     <string name="outside_diameter">Outside Diameter (inch)</string>
     <string name="transition_diameter">Transition Diameter (inch)</string>
